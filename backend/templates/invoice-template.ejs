@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .table thead th {
+            background-color: #f2f2f2;
+        }
+        .signature-img {
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <header class="invoice-header">
+        <h1>INVOICE</h1>
+        <img src="<%= invoiceData.signatureImage %>" alt="Signature" class="signature-img"/>
+        <h2>Seller: <%= invoiceData.sellerDetails.name %></h2>
+        <p><%= invoiceData.sellerDetails.address %>, <%= invoiceData.sellerDetails.city %> - <%= invoiceData.sellerDetails.pincode %></p>
+        <p>PAN: <%= invoiceData.sellerDetails.pan %> | GST: <%= invoiceData.sellerDetails.gst %></p>
+    </header>
+
+    <section>
+        <h3>Billing Details</h3>
+        <p><strong>Name:</strong> <%= invoiceData.billingDetails.name %></p>
+        <p><strong>Address:</strong> <%= invoiceData.billingDetails.address %>, <%= invoiceData.billingDetails.city %> - <%= invoiceData.billingDetails.pincode %></p>
+        <p><strong>State Code:</strong> <%= invoiceData.billingDetails.stateCode %></p>
+    </section>
+
+    <section>
+        <h3>Item Details</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Discount</th>
+                    <th>Net Amount</th>
+                    <th>Tax Rate</th>
+                    <th>Tax Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% invoiceData.items.forEach(item => { %>
+                <tr>
+                    <td><%= item.description %></td>
+                    <td><%= item.unitPrice %></td>
+                    <td><%= item.quantity %></td>
+                    <td><%= item.discount %></td>
+                    <td><%= item.netAmount %></td>
+                    <td><%= item.taxRate %></td>
+                    <td><%= item.taxAmount %></td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h3>Total</h3>
+        <p><strong>Total Tax:</strong> <%= invoiceData.totalTax %></p>
+        <p><strong>Total Amount:</strong> <%= invoiceData.totalAmount %></p>
+    </section>
+</body>
+</html>
